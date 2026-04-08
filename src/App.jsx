@@ -1,6 +1,10 @@
 import { useState } from 'react';
 
 export default function App() {
+  const scrollToSection = (id) => {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
   const [screen, setScreen] = useState('landing');
   const isMobile = window.innerWidth < 768;
 
@@ -134,9 +138,9 @@ export default function App() {
               fontSize: isMobile ? '13px' : '15px',
             }}
           >
-            <span>About</span>
-            <span>Programs</span>
-            <span>Daily Report</span>
+            <span onClick={() => scrollToSection('programs')} style={{ cursor: 'pointer' }}>Programs</span>
+            <span onClick={() => scrollToSection('report')} style={{ cursor: 'pointer' }}>Daily Report</span>
+            <span onClick={() => scrollToSection('about')} style={{ cursor: 'pointer' }}>About</span>
             <button
               onClick={() => setScreen('playing')}
               style={{
@@ -265,6 +269,7 @@ export default function App() {
         </section>
 
         <section
+          id="programs"
           style={{
             marginTop: isMobile ? '48px' : '84px',
             display: 'grid',
@@ -278,6 +283,83 @@ export default function App() {
               <p style={{ color: '#475569', lineHeight: 1.8 }}>{item.desc}</p>
             </div>
           ))}
+        </section>
+
+        <section
+          id="report"
+          style={{ marginTop: isMobile ? '48px' : '84px' }}
+        >
+          <div style={{ background: 'white', borderRadius: '28px', padding: '28px' }}>
+            <div style={{ color: '#64748b', fontSize: '14px', marginBottom: '12px' }}>
+              Daily Report Preview
+            </div>
+            <h3 style={{ fontSize: '28px', margin: '0 0 14px' }}>오늘의 성장 리포트</h3>
+            <p style={{ color: '#475569', lineHeight: 1.9 }}>
+              최고 반응속도, 평균 기록, 연속 훈련 일수, 최근 7일 성장률을 한눈에 보여주는
+              리포트 기능이 다음 단계에서 연결됩니다.
+            </p>
+          </div>
+        </section>
+
+        <section
+          id="about"
+          style={{
+            marginTop: isMobile ? '48px' : '84px',
+          }}
+        >
+          <div style={{ background: 'white', borderRadius: '28px', padding: '28px' }}>
+            <div style={{ color: '#64748b', fontSize: '14px', marginBottom: '12px' }}>
+              About
+            </div>
+            <h2 style={{ fontSize: isMobile ? '28px' : '38px', margin: '0 0 14px' }}>
+              뇌과학 독서에서 시작된
+              <br />
+              개인 브레인 트레이닝 아카이브
+            </h2>
+            <p style={{ color: '#475569', lineHeight: 1.9, marginBottom: '22px' }}>
+              다양한 뇌과학·인지과학 독서를 바탕으로 훈련 설계 아이디어를 축적한 개인 북 아카이브입니다.
+            </p>
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
+                gap: '14px',
+              }}
+            >
+              {[
+                '뉴럴 링크',
+                '기억하는 뇌, 망각하는 뇌',
+                '건강의 뇌과학',
+                '무의식은 어떻게 나를 설계하는가',
+                '나라는 착각',
+                '독서의 뇌과학',
+                '올리버 색스 대표작',
+                '예민해서 힘들 땐 뇌과학',
+                '사이코패스의 뇌',
+                '생각은 어떻게 행동이 되는가',
+                '걷기의 세계',
+                '정재승의 과학 콘서트',
+              ].map((book, idx) => (
+                <div
+                  key={idx}
+                  style={{
+                    background: 'linear-gradient(180deg, #ffffff 0%, #f8fafc 100%)',
+                    border: '1px solid #e2e8f0',
+                    borderRadius: '20px',
+                    padding: '18px',
+                    minHeight: '96px',
+                    boxShadow: '0 8px 24px rgba(15,23,42,0.04)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    fontWeight: 700,
+                    lineHeight: 1.5,
+                  }}
+                >
+                  {book}
+                </div>
+              ))}
+            </div>
+          </div>
         </section>
       </div>
     </div>
